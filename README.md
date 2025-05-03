@@ -4,11 +4,14 @@
 * Use a GPU with min 48GB VRAM
 * Local storage space = 100GB, no volume
 * Forward port 7680 (HTTP)
-* cd workspace
+* cd /workspace
 * git clone https://github.com/h3ndrik/InstantCharacter.git
-* cd workspace
+* cd InstantCharacter
 * pip install --upgrade pip
 * pip install -r requirements.txt
+* export XDG_CACHE_HOME="/workspace/.cache"
+* export HF_HOME="/workspace/.cache/huggingface"
+* #pip install -U "huggingface_hub[cli]"
 * huggingface-cli login
 * python secourses_app.py
 
