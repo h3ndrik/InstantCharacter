@@ -5,7 +5,7 @@ import random
 import numpy as np
 import os
 os.environ['HF_HOME'] = '/workspace/.cache/huggingface'
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"  # keep fragments small
+#os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"  # keep fragments small
 import time # Added for unique filenames
 import platform # Added for opening folder
 import subprocess # Added for opening folder
@@ -134,7 +134,7 @@ if not os.path.exists("assets/boy.jpg"):
 # --- Initialize Pipelines and Models ---
 print("Initializing InstantCharacter pipeline...")
 try:
-    pipe = InstantCharacterFluxPipeline.from_pretrained(base_model, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+    pipe = InstantCharacterFluxPipeline.from_pretrained(base_model, torch_dtype=dtype, low_cpu_mem_usage=True)
 #    pipe.enable_xformers_memory_efficient_attention()   # -1-2 GB KV cache
 #    pipe.enable_attention_slicing()
 #    pipe.enable_model_cpu_offload()
@@ -317,6 +317,16 @@ def remove_bkg(subject_image: Image.Image) -> Image.Image:
     crop_pad_obj_image = pad_to_square(composite_image, 255)
     subject_image_processed = Image.fromarray(crop_pad_obj_image.astype(np.uint8))
     print("Background removal and processing complete.")
+
+    # --- Clear CUDA cache to prevent VRAM leaks ---
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        print("CUDA cache cleared")
+        
+    # --- Run garbage collection to free memory ---
+    gc.collect()
+    print("Memory garbage collection performed")
+
     return subject_image_processed
 
 
@@ -339,6 +349,12 @@ def get_example():
         ],
         [
             "assets/boy.jpg", "photo of a man holding a camera", 1.1, 'None'
+        ],
+        [
+            "assets/girl.jpg", "a woman is sitting at table with a cup of tea in hands, while it is raining outside the window", 1.1, 'None'
+        ],
+        [
+            "assets/girl.jpg", "A girl is playing a guitar in street", 0.9, 'Makoto Shinkai style'
         ],
     ]
     # Check if example files exist before adding them
