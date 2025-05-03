@@ -1,16 +1,16 @@
 # Install
 
-Use the official Runpod Pytorch space with Pytorch >= 2.8.0
-Use a GPU with min 48GB VRAM
-Local storage space = 100GB, no volume
-
-cd workspace
-git clone https://github.com/h3ndrik/InstantCharacter.git
-cd workspace
-pip install --upgrade pip
-pip install -r requirements.txt
-huggingface-cli login
-python secourses_app.py
+* Use the official Runpod Pytorch space with Pytorch >= 2.8.0
+* Use a GPU with min 48GB VRAM
+* Local storage space = 100GB, no volume
+* Forward port 7680 (HTTP)
+* cd workspace
+* git clone https://github.com/h3ndrik/InstantCharacter.git
+* cd workspace
+* pip install --upgrade pip
+* pip install -r requirements.txt
+* huggingface-cli login
+* python secourses_app.py
 
 
 

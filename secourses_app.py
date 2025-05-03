@@ -734,7 +734,7 @@ if __name__ == '__main__':
     print("Launching Gradio app...")
     block.queue(max_size=10) # Enable queue for handling concurrent requests (adjust size as needed)
     block.launch(
-        inbrowser=True,
+        server_name="0.0.0.0", server_port=7680,
         share=args.share
         )
 
