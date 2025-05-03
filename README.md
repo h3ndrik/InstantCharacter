@@ -12,7 +12,8 @@
 * export XDG_CACHE_HOME="/workspace/.cache"
 * export HF_HOME="/workspace/.cache/huggingface"
 * #pip install -U "huggingface_hub[cli]"
-* huggingface-cli login
+* huggingface-cli login  (get it from https://huggingface.co/settings/tokens)
+* pip3 install xformers torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 * python secourses_app.py
 
 

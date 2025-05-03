@@ -20,4 +20,4 @@ timm==0.9.16
 hf_transfer
 protobuf
 optimum-quanto
-xformers --index-url https://download.pytorch.org/whl/nightly/cu128
+#xformers --index-url https://download.pytorch.org/whl/cu128

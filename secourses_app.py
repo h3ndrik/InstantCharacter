@@ -134,11 +134,11 @@ if not os.path.exists("assets/boy.jpg"):
 # --- Initialize Pipelines and Models ---
 print("Initializing InstantCharacter pipeline...")
 try:
-    pipe = InstantCharacterFluxPipeline.from_pretrained(base_model, torch_dtype=dtype)
-    pipe.to(device)
+    pipe = InstantCharacterFluxPipeline.from_pretrained(base_model, torch_dtype=torch.float16, low_cpu_mem_usage=True)
 #    pipe.enable_xformers_memory_efficient_attention()   # -1-2 GB KV cache
 #    pipe.enable_attention_slicing()
 #    pipe.enable_model_cpu_offload()
+    pipe.to(device)
 except Exception as e:
     print(f"Error initializing the main pipeline: {e}")
     exit()
