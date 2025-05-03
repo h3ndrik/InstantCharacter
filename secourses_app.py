@@ -6,6 +6,7 @@ import numpy as np
 import os
 os.environ['HF_HOME'] = '/workspace/.cache/huggingface'
 #os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"  # keep fragments small
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import time # Added for unique filenames
 import platform # Added for opening folder
 import subprocess # Added for opening folder
@@ -354,7 +355,7 @@ def get_example():
             "assets/girl.jpg", "a woman is sitting at table with a cup of tea in hands, while it is raining outside the window", 1.1, 'None'
         ],
         [
-            "assets/girl.jpg", "A girl is playing a guitar in street", 0.9, 'Makoto Shinkai style'
+            "assets/girl.jpg", "A girl is playing a guitar in street", 0.9, 'Makoto Shinkai Style'
         ],
     ]
     # Check if example files exist before adding them
@@ -649,7 +650,8 @@ with gr.Blocks(css=css, theme=gr.themes.Soft()) as block:
                 object_fit="contain",
                 columns=2, # Show potentially multiple images side-by-side
                 preview=True, # Allow clicking image for larger view,
-                height=768
+                height=768,
+                show_download_button=True,
             )
             open_folder_button = gr.Button("Open Outputs Folder")
                         # --- Advanced Options ---
