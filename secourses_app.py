@@ -4,6 +4,7 @@ import torch
 import random
 import numpy as np
 import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"  # keep fragments small
 import time # Added for unique filenames
 import platform # Added for opening folder
 import subprocess # Added for opening folder
@@ -134,6 +135,9 @@ print("Initializing InstantCharacter pipeline...")
 try:
     pipe = InstantCharacterFluxPipeline.from_pretrained(base_model, torch_dtype=dtype)
     pipe.to(device)
+    pipe.enable_xformers_memory_efficient_attention()   # -1-2 GB KV cache
+    pipe.enable_attention_slicing()
+    pipe.enable_model_cpu_offload()
 except Exception as e:
     print(f"Error initializing the main pipeline: {e}")
     exit()
