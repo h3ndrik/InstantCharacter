@@ -20,3 +20,4 @@ timm==0.9.16
 hf_transfer
 protobuf
 optimum-quanto
+xformers

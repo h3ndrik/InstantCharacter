@@ -1,14 +1,18 @@
-# Latest installer zip file : https://www.patreon.com/posts/126995127**
+# Install
 
-## I have significantly improved the official Repo app
+Use the official Runpod Pytorch space with Pytorch >= 2.8.0
+Use a GPU with min 48GB VRAM
+Local storage space = 100GB, no volume
 
-## Put FLUX LoRAs into loras folder, it will download 3 LoRAs by default
+cd workspace
+git clone https://github.com/h3ndrik/InstantCharacter.git
+cd workspace
+pip install --upgrade pip
+pip install -r requirements.txt
+huggingface-cli login
+python secourses_app.py
 
-## It will download necessary models into models folder automatically
 
-## Lower Character Scale makes it more stylized like 0.6, 0.8 etc
-
-## Also official repo Gradio was completely broken, fixed, improved, added new features like automatically save every generated image, number of generations and more
 
 ## Currently you need min 48GB GPUs, I am trying to make it work with lower VRAM via quantization
 

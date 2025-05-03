@@ -63,6 +63,8 @@ try:
     makoto_lora_filename = "Makoto_Shinkai_style.safetensors"
     ghibli_lora_filename = "ghibli_style.safetensors"
     ghibli_anime_lora_filename = "Ghibli_Anime_Art_Style.safetensors"
+    nsfw1_lora_filename = "sldr_flux_nsfw_v2-studio.safetensors"
+    nsfw2_lora_filename = "nsfw-highress.safetensors"
     
     # Import shutil for file copying
     import shutil
@@ -92,7 +94,23 @@ try:
                                          filename=ghibli_anime_lora_filename)
         # Copy the downloaded file to our loras directory
         shutil.copy(downloaded_path, ghibli_anime_style_lora_path)
-    
+
+    nsfw1_style_lora_path = os.path.join(LORAS_DIR, nsfw1_lora_filename)
+    if not os.path.exists(nsfw1_style_lora_path):
+        print(f"Downloading NSFW1 Style LoRA to {LORAS_DIR}...")
+        downloaded_path = hf_hub_download(repo_id="xey/sldr_flux_nsfw_v2-studio", 
+                                         filename=nsfw1_lora_filename)
+        # Copy the downloaded file to our loras directory
+        shutil.copy(downloaded_path, nsfw1_style_lora_path)
+
+    nsfw2_style_lora_path = os.path.join(LORAS_DIR, nsfw2_lora_filename)
+    if not os.path.exists(nsfw2_style_lora_path):
+        print(f"Downloading NSFW2 Style LoRA to {LORAS_DIR}...")
+        downloaded_path = hf_hub_download(repo_id="CultriX/flux-nsfw-highress", 
+                                         filename=nsfw2_lora_filename)
+        # Copy the downloaded file to our loras directory
+        shutil.copy(downloaded_path, nsfw2_style_lora_path)
+
 except Exception as e:
     print(f"Error downloading or finding model weights: {e}")
     print("Please check your internet connection and Hugging Face Hub access.")
@@ -178,7 +196,11 @@ def refresh_loras():
     global available_loras, lora_path_mapping
     available_loras, lora_path_mapping = get_available_loras()
     print(f"Refreshed LoRA list: Found {len(available_loras)-1} LoRA files")
-    return gr.Dropdown.update(choices=available_loras, value="None" if "None" in available_loras else available_loras[0])
+    return gr.Dropdown(label='Artistic Style',
+                       choices=available_loras,
+                       value='None' if 'None' in available_loras else available_loras[0],
+                       info="Select LoRA style or None.",
+                       scale=1)
 
 def open_loras_folder():
     """Opens the LoRAs folder in the file explorer."""
